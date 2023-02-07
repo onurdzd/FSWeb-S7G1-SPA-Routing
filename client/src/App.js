@@ -9,7 +9,6 @@ import { Route } from "react-router-dom";
 export default function App() {
   const [saved, setSaved] = useState([]); // Stretch: the ids of "saved" movies
   const [movieList, setMovieList] = useState([]);
-  const [disable, setDisable] = useState("ads");
 
   useEffect(() => {
     const FilmleriAl = () => {
@@ -27,8 +26,13 @@ export default function App() {
     FilmleriAl();
   }, []);
 
-  const KaydedilenlerListesineEkle = (id) => {
+  const KaydedilenlerListesineEkle = (a) => {
     // Burası esnek. Aynı filmin birden fazla kez "saved" e eklenmesini engelleyin
+    const savedYedek = saved;
+
+    savedYedek.find((e) => e.id === a.id) === null && savedYedek.push(a);
+
+    setSaved([...savedYedek]);
   };
 
   return (
@@ -38,13 +42,7 @@ export default function App() {
         <FilmListesi movies={movieList}></FilmListesi>
       </Route>
       <Route path={"/filmler/:id"}>
-        <Film
-          KaydedilenlerListesineEkle={KaydedilenlerListesineEkle}
-          setSaved={setSaved}
-          saved={saved}
-          disable={disable}
-          setDisable={setDisable}
-        ></Film>
+        <Film KaydedilenlerListesineEkle={KaydedilenlerListesineEkle}></Film>
       </Route>
     </div>
   );

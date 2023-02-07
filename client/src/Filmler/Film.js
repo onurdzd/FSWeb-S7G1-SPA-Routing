@@ -32,14 +32,9 @@ export default function Film(props) {
 
   const { title, director, metascore, stars } = movie;
 
-  const filmiKaydet = (evt) => {
-    props.setSaved([...props.saved, movie]);
-    if (props.saved.filter((item) => item.title === movie.title).length === 0) {
-      props.setDisable("none");
-    } else {
-      props.setDisable("");
-    }
-  };
+  // const filmiKaydet = (evt) => {
+  //   KaydedilenlerListesi(evt);
+  // };
 
   return (
     <div className="save-wrapper">
@@ -60,9 +55,8 @@ export default function Film(props) {
       </div>
       <div
         className="save-button"
-        onClick={filmiKaydet}
+        onClick={() => props.KaydedilenlerListesineEkle(movie)}
         type="button"
-        style={{ pointerEvents: `${props.disable}` }}
       >
         Kaydet
       </div>
